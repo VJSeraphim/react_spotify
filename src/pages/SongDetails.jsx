@@ -12,9 +12,20 @@ const SongDetails = () => {
     const { data: songData, isFetching: isFetchingSongDetails } = useGetSongDetailsQuery({ songid })
     const { data, isFetching: isFetchingRelatedSongs, error} = useGetSongRelatedQuery({ songid })
 
+    const handlePauseClick = () => {
+        dispatch(playPause(false))
+    }
+
+    const handlePlayClick = () => {
+        dispatch(setActiveSong({ song, data, i}))
+        dispatch(playPause(true))
+    }
+
     if(isFetchingSongDetails || isFetchingRelatedSongs) return (
         <Loader title="Searching for Song Details..." />
     )
+
+    if (error) return <Error />
 
     return (
         <div className="flex flex-col">
@@ -40,6 +51,8 @@ const SongDetails = () => {
                 data={data}
                 isPlaying={isPlaying}
                 activeSong={activeSong}
+                handlePauseClick={handlePauseClick}
+                handlePlayClick={handlePlayClick}
             />
         </div>
     )
