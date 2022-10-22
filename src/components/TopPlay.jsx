@@ -24,7 +24,7 @@ const TopChartCard = ({ song, i, isPlaying, activeSong, handlePauseClick, handle
             {song?.title}
           </p>
         </Link>
-        <Link to={`/artists/${song?.srtists[0].adamid}`}>
+        <Link to={`/artists/${song?.artists[0].adamid}`}>
           <p className="text-base text-gray-300 mt-1">
             {song?.subtitle}
           </p>
@@ -57,7 +57,7 @@ const TopPlay = () => {
     dispatch(playPause(false))
   }
 
-  const handlePlayClick = () => {
+  const handlePlayClick = (song, i) => {
     dispatch(setActiveSong({ song, data, i }))
     dispatch(playPause(true))
   }
